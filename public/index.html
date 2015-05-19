@@ -1,0 +1,27 @@
+<!doctype html>
+<html>
+	<head>
+		<title>MySql with Node.js</title>
+		<link type="text/css" rel="stylesheet" href="/stylesheets/style.css"/>
+		<script type="text/javascript" src="/javascripts/jquery-1.11.3.js"></script>
+		<script type="text/javascript" src="/javascripts/angular.js"></script>
+		<script type="text/javascript" src="/javascripts/main.js"></script>
+	</head>
+	<body ng-app="firstApp">
+		<div ng-controller="firstController as fC">
+			<form id="add-data" name="add-data" ng-submit="addFriend()">
+				<input type="text" placeholder="Add name" ng-model="name" size="20" />
+				<input type="text" placeholder="Add city" ng-model="city" />
+				<input type="text" placeholder="Add designation" ng-model="designation" />
+				<input type="submit" value="Add User"/>
+			</form>
+			<ul class="unstyled">
+				<li ng-repeat="rowData in fC.rows">
+					{{rowData.name}}<br/>
+					{{rowData.city}}<br/>
+					{{rowData.designation}}
+				</li>
+			</ul>
+		</div>
+	</body>
+</html>
