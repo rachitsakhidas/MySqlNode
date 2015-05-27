@@ -17,9 +17,7 @@
 			</form>
 			<ul class="unstyled">
 				<li ng-repeat="rowData in fC.rows">
-					{{rowData.name}}<br/>
-					{{rowData.city}}<br/>
-					{{rowData.designation}}
+					<a href="#" ng-click="openEditView(rowData.id)">{{rowData.name}}</a> {{rowData.city}} {{rowData.designation}}
 				</li>
 			</ul>
 		</div>

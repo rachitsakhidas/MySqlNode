@@ -28,9 +28,34 @@ router.get("/getData", function(req,res,next){
 });
 
 router.post('/addUser', function(req, res, next){
-	
 	var myParams =  "'"  + req.body.name + "','" + req.body.city + "','" + req.body.designation + "'";
 	connection.query('CALL sp_insert_data('+myParams+')', function(err, rows, fields) {
+	  	if (!err){
+	    	res.json(rows)
+	    	//res.end();
+	  	}
+	  	else
+	    	console.log('Error while performing Query.');
+	});
+});
+
+
+router.post('/getDataById', function(req, res, next){
+	var myParams = "'" + req.body.id + "'";
+	connection.query('CALL sp_get_data_by_id('+myParams+')', function(err, rows, fields) {
+	  	if (!err){
+	  		console.log(rows);
+	    	res.json(rows)
+	    	//res.end();
+	  	}
+	  	else
+	    	console.log('Error while performing Query.');
+	});
+})
+
+router.post('/updateUser', function(req, res, next){
+	var myParams = "'" + req.body.userId + "'" + req.body.name + "','" + req.body.city + "','" + req.body.designation + "'";
+	connection.query('CALL sp_update_data('+myParams+')', function(err, rows, fields) {
 	  	if (!err){
 	    	res.json(rows)
 	    	//res.end();

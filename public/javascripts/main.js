@@ -1,6 +1,6 @@
 var app = angular.module("firstApp", []);
 
-app.controller("firstController", function($scope, $http, sendGetReq, addUserData){
+app.controller("firstController", function($scope, $http, sendGetReq, addUserData, getDataById){
 	var myAppThis = this;
 	
 	$scope.getData = function(){
@@ -38,6 +38,25 @@ app.controller("firstController", function($scope, $http, sendGetReq, addUserDat
 			//$scope.add-data.reset();
 		});
 	};
+
+	$scope.openEditView = function(id){
+		console.log(id);
+		var requestParam = {
+			url: "/getDataById",
+			inputData: {
+				"id": id
+			}
+		};
+		var request = getDataById.init(requestParam);
+		request.then(function(data){
+			debugger;
+			$scope.name = data[0].name;
+			$scope.city = data[0].city;
+			$scope.designation = data[0].designation;
+		}, function(){
+
+		});
+	};
 	
 }).service('sendGetReq', function($http, $q) { 
 	return { 
@@ -51,6 +70,17 @@ app.controller("firstController", function($scope, $http, sendGetReq, addUserDat
 		}
 	}
 }).service('addUserData', function($http){
+	return {
+		init: function(requestParam){
+			var request = $http({
+				method: "POST",
+				url: requestParam.url,
+				data: requestParam.inputData
+			});
+			return request;
+		}
+	}
+}).service('getDataById', function($http){
 	return {
 		init: function(requestParam){
 			var request = $http({
